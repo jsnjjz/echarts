@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="echarts.js"></script>
+	<script>
+		window.onload = function(){
+				
+				var m = ["西瓜","苹果","梨","裤子","高跟鞋","袜子","木瓜"];
+			  var n = [5, 20, 36, 10, 10, 20,66];
+			 // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+				
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '月销售量'
+            },
+            tooltip: {
+							 trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            },
+            backgroundColor: 'rgba(245, 245, 245, 0.8)',
+            borderWidth: 1,
+            borderColor: '#ccc',
+            padding: 10,
+            textStyle: {
+                color: '#000'
+            },
+            position: function (pos, params, el, elRect, size) {
+                var obj = {top: 10};
+                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                return obj;
+            },
+            extraCssText: 'width: 170px'
+						},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: m
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: n
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+			
+			
+			var oBtn = document.getElementById("btn");
+			oBtn.onclick = function(){
+				  m = ["西瓜1","苹果1","梨1","裤子1","高跟鞋1","袜子1","木瓜1"];
+			   n = [15, 120, 136, 110, 110, 120,166];
+				var option = {
+					xAxis: {
+                data: m
+            },
+					series: [{
+                data: n
+            }]
+				}
+				myChart.setOption(option);
+			}
+			
+			
+			
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<button id="btn">切换</button>
+	<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+	<div id="main" style="width: 600px;height:400px;">
+	</div>
+</body>
+</html>
